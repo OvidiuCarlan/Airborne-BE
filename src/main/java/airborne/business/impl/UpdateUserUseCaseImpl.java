@@ -28,6 +28,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
         }
         UserEntity user = userOptional.get();
         updateFields(request, user);
+        userRepository.save(user);
     }
     private void updateFields(UpdateUserRequest request, UserEntity user){
         user.setName(request.getName());

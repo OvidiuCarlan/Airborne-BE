@@ -1,5 +1,6 @@
 package airborne.domain;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -7,12 +8,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRequest {
-    @NonNull
+    @NotNull
     private Long id;
-    @NonNull
+    @NotNull
     private String name;
-    @NonNull
+    @NotNull
     private String email;
-    @NonNull
+    @NotNull
     private String password;
 }
