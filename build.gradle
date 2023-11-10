@@ -11,6 +11,8 @@ sonar {
         property "sonar.projectKey", "Airborne"
         property "sonar.projectName", "Airborne"
         property "sonar.qualitygate.wait", true
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPath", "${buildDir}/reports/jacoco.xml"
     }
 }
 
