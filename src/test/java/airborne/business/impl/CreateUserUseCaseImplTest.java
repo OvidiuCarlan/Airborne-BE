@@ -1,19 +1,15 @@
 package airborne.business.impl;
 
-import airborne.business.CreateUserUseCase;
-import airborne.domain.CreateUserRequest;
-import airborne.domain.CreateUserResponse;
+import airborne.business.dto.CreateUserRequest;
+import airborne.business.dto.CreateUserResponse;
 import airborne.persistance.UserRepository;
 import airborne.persistance.entity.UserEntity;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 

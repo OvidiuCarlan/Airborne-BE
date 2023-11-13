@@ -1,4 +1,4 @@
-package airborne.domain;
+package airborne.business.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,15 +1,12 @@
 package airborne.business.impl;
 
-import airborne.business.GetUserUseCase;
 import airborne.domain.User;
 import airborne.persistance.UserRepository;
 import airborne.persistance.entity.UserEntity;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;

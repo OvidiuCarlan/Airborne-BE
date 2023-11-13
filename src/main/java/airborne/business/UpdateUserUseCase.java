@@ -1,6 +1,6 @@
 package airborne.business;
 
-import airborne.domain.UpdateUserRequest;
+import airborne.business.dto.UpdateUserRequest;
 
 public interface UpdateUserUseCase {
     void updateUser(UpdateUserRequest request);

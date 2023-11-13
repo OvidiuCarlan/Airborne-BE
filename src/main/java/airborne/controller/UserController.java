@@ -1,7 +1,10 @@
 package airborne.controller;
 
 import airborne.business.*;
-import airborne.domain.*;
+import airborne.business.dto.CreateUserRequest;
+import airborne.business.dto.CreateUserResponse;
+import airborne.business.dto.UpdateUserRequest;
+import airborne.domain.User;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

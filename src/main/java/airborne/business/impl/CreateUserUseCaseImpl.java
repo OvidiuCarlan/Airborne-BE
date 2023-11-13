@@ -1,8 +1,8 @@
 package airborne.business.impl;
 
 import airborne.business.CreateUserUseCase;
-import airborne.domain.CreateUserRequest;
-import airborne.domain.CreateUserResponse;
+import airborne.business.dto.CreateUserRequest;
+import airborne.business.dto.CreateUserResponse;
 import airborne.persistance.UserRepository;
 import airborne.persistance.entity.UserEntity;
 import lombok.AllArgsConstructor;

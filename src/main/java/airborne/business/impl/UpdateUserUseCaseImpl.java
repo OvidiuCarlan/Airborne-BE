@@ -1,11 +1,8 @@
 package airborne.business.impl;
 
-import airborne.business.CreateUserUseCase;
 import airborne.business.UpdateUserUseCase;
 import airborne.business.exception.InvalidUserIdException;
-import airborne.domain.CreateUserRequest;
-import airborne.domain.CreateUserResponse;
-import airborne.domain.UpdateUserRequest;
+import airborne.business.dto.UpdateUserRequest;
 import airborne.persistance.UserRepository;
 import airborne.persistance.entity.UserEntity;
 import lombok.AllArgsConstructor;

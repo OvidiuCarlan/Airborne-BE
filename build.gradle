@@ -20,7 +20,7 @@ sonar {
 
 flyway {
     url = 'jdbc:sqlserver://mssqlstud.fhict.local;databaseName=dbi481968_airbornedb;encrypt=false'
-    user = 'dbi481968'
+    user = 'dbi481968_airbornedb'
     password = 'parola'
     locations = ['filesystem:src/main/resources/db/migration']
     baselineOnMigrate = true
@@ -40,6 +40,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation "org.flywaydb:flyway-sqlserver"
     implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '12.4.2.jre11'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation "org.mockito:mockito-core:3.+"
     testImplementation 'junit:junit:4.13.1'
     compileOnly 'org.projectlombok:lombok'
