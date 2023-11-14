@@ -3,7 +3,9 @@ package airborne.business.impl;
 import airborne.business.dto.CreateUserRequest;
 import airborne.business.dto.CreateUserResponse;
 import airborne.persistance.UserRepository;
+import airborne.persistance.entity.RoleEnum;
 import airborne.persistance.entity.UserEntity;
+import airborne.persistance.entity.UserRoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,7 +26,9 @@ class CreateUserUseCaseImplTest {
     @Test
     public void CreateUserShouldCreateNewUser() {
         // Arrange
-        CreateUserRequest request = new CreateUserRequest(1L,"John Doe", "johndoe@example.com", "password");
+        UserRoleEntity role = new UserRoleEntity();
+        role.setRole(RoleEnum.USER);
+        CreateUserRequest request = new CreateUserRequest(1L,"John Doe", "johndoe@example.com", "password", role );
 
         UserEntity savedUser = new UserEntity();
         savedUser.setId(1L);
