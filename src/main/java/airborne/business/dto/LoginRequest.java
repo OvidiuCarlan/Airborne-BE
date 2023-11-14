@@ -1,19 +1,19 @@
-package airborne.domain;
+package airborne.business.dto;
 
-import airborne.persistance.entity.UserRoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.NotBlank;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private Long id;
-    private String name;
+public class LoginRequest {
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
-    private UserRoleEntity userRole;
 }

@@ -1,5 +1,6 @@
 package airborne.business.dto;
 
+import airborne.persistance.entity.UserRoleEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -16,4 +17,5 @@ public class CreateUserRequest {
     private String email;
     @NotNull
     private String password;
+    private UserRoleEntity role;
 }
