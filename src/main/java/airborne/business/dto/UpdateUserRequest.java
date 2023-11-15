@@ -1,5 +1,6 @@
 package airborne.business.dto;
 
+import airborne.persistance.entity.UserRoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +15,5 @@ public class UpdateUserRequest {
     private String name;
     private String email;
     private String password;
+    private UserRoleEntity role;
 }

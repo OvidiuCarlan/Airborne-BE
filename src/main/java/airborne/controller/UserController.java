@@ -1,9 +1,7 @@
 package airborne.controller;
 
 import airborne.business.*;
-import airborne.business.dto.CreateUserRequest;
-import airborne.business.dto.CreateUserResponse;
-import airborne.business.dto.UpdateUserRequest;
+import airborne.business.dto.*;
 import airborne.domain.User;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -15,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:4173" })
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true" ) 
 @AllArgsConstructor
 
 public class UserController {
@@ -24,6 +22,7 @@ public class UserController {
     private final GetUserUseCase getUserUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
+    private final LoginUseCase loginUseCase;
 
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") final long id) {
@@ -51,6 +50,11 @@ public class UserController {
         request.setId(id);
         updateUserUseCase.updateUser(request);
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping(path = "/tokens")
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest){
+        LoginResponse loginResponse = loginUseCase.login(loginRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(loginResponse);
     }
 
 

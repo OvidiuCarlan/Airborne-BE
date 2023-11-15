@@ -3,7 +3,9 @@ package airborne.business.impl;
 import airborne.business.exception.InvalidUserIdException;
 import airborne.business.dto.UpdateUserRequest;
 import airborne.persistance.UserRepository;
+import airborne.persistance.entity.RoleEnum;
 import airborne.persistance.entity.UserEntity;
+import airborne.persistance.entity.UserRoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,8 +32,10 @@ class UpdateUserUseCaseImplTest {
         String newUsername = "John Doe";
         String newEmail = "johndoe@example.com";
         String newPassword = "newpassword";
+        UserRoleEntity newRole = new UserRoleEntity();
+        newRole.setRole(RoleEnum.USER);
 
-        UpdateUserRequest request = new UpdateUserRequest(userId, newUsername, newEmail, newPassword);
+        UpdateUserRequest request = new UpdateUserRequest(userId, newUsername, newEmail, newPassword, newRole);
 
         UserEntity existingUser = new UserEntity();
         existingUser.setId(userId);
@@ -56,7 +60,9 @@ class UpdateUserUseCaseImplTest {
     public void testUpdateUserInvalidUserId() {
         // Arrange
         Long userId = 1L;
-        UpdateUserRequest request = new UpdateUserRequest(userId, "John Doe", "johndoe@example.com", "newpassword");
+        UserRoleEntity role = new UserRoleEntity();
+        role.setRole(RoleEnum.USER);
+        UpdateUserRequest request = new UpdateUserRequest(userId, "John Doe", "johndoe@example.com", "newpassword", role);
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 

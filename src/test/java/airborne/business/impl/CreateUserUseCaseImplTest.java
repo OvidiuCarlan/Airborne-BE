@@ -2,6 +2,7 @@ package airborne.business.impl;
 
 import airborne.business.dto.CreateUserRequest;
 import airborne.business.dto.CreateUserResponse;
+import airborne.persistance.RoleRepository;
 import airborne.persistance.UserRepository;
 import airborne.persistance.entity.RoleEnum;
 import airborne.persistance.entity.UserEntity;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -20,6 +22,10 @@ class CreateUserUseCaseImplTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private RoleRepository roleRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
     @InjectMocks
     private CreateUserUseCaseImpl createUserUseCase;
 
