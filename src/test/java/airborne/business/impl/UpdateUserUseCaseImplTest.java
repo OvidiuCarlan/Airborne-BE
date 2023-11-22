@@ -26,7 +26,7 @@ class UpdateUserUseCaseImplTest {
     private UpdateUserUseCaseImpl updateUserUseCase;
 
     @Test
-    public void testUpdateUser() {
+    void testUpdateUser() {
         // Arrange
         Long userId = 1L;
         String newUsername = "John Doe";
@@ -57,7 +57,7 @@ class UpdateUserUseCaseImplTest {
         assertEquals(newPassword, existingUser.getPassword());
     }
     @Test
-    public void testUpdateUserInvalidUserId() {
+    void testUpdateUserInvalidUserId() {
         // Arrange
         Long userId = 1L;
         UserRoleEntity role = new UserRoleEntity();

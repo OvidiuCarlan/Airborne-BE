@@ -22,12 +22,12 @@ class DeleteUserUseCaseImplTest {
     private DeleteUserUseCaseImpl deleteUserUseCase;
 
     @Test
-    public void testDeleteUser() {
+    void testDeleteUser() {
         // Arrange
         Long userId = 1L;
 
         // Act
-        deleteUserUseCase.DeleteUser(userId);
+        deleteUserUseCase.deleteUser(userId);
 
         // Assert
         verify(userRepository, times(1)).deleteById(userId);

@@ -30,7 +30,7 @@ class CreateUserUseCaseImplTest {
     private CreateUserUseCaseImpl createUserUseCase;
 
     @Test
-    public void CreateUserShouldCreateNewUser() {
+    void CreateUserShouldCreateNewUser() {
         // Arrange
         UserRoleEntity role = new UserRoleEntity();
         role.setRole(RoleEnum.USER);

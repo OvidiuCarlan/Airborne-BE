@@ -22,7 +22,7 @@ class GetUserUseCaseImplTest {
     private GetUserUseCaseImpl getUserUseCase;
 
     @Test
-    public void testGetUser() {
+    void testGetUser() {
         // Arrange
         Long userId = 1L;
         UserEntity userEntity = new UserEntity();
@@ -47,7 +47,7 @@ class GetUserUseCaseImplTest {
     }
 
     @Test
-    public void testGetUserNotFound() {
+    void testGetUserNotFound() {
         // Arrange
         Long userId = 1L;
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
