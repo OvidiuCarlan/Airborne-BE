@@ -17,8 +17,8 @@ import java.util.Optional;
 @AllArgsConstructor
 
 public class UserController {
-    private final CreateUserUseCase createUserUseCase;
 
+    private final CreateUserUseCase createUserUseCase;
     private final GetUserUseCase getUserUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;

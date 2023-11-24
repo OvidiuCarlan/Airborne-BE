@@ -1,0 +1,3 @@
+ALTER TABLE Posts
+RENAME COLUMN image TO image_data,
+ALTER COLUMN image TYPE TEXT;
