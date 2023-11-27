@@ -1,13 +1,8 @@
 package airborne.controller;
 
 
-import airborne.business.CreatePostUseCase;
-import airborne.business.DeletePostUseCase;
-import airborne.business.GetPostUseCase;
-import airborne.business.UpdatePostUseCase;
-import airborne.business.dto.CreatePostRequest;
-import airborne.business.dto.CreatePostResponse;
-import airborne.business.dto.UpdatePostRequest;
+import airborne.business.*;
+import airborne.business.dto.*;
 import airborne.domain.Post;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -28,20 +23,21 @@ public class PostController {
     private final GetPostUseCase getPostUseCase;
     private final DeletePostUseCase deletePostUseCase;
     private final UpdatePostUseCase updatePostUseCase;
+    private final GetUserPostsUseCase getUserPostsUseCase;
     @PostMapping()
     public ResponseEntity<CreatePostResponse> createPost(@RequestBody @Valid CreatePostRequest request){
         CreatePostResponse response = createPostUseCase.createPost(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Post> getPost(@PathVariable(value = "id") final long id){
-        final Optional<Post> postOptional = getPostUseCase.getPost(id);
-        if(postOptional.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(postOptional.get());
-    }
+//    @GetMapping("{id}")
+//    public ResponseEntity<Post> getPost(@PathVariable(value = "id") final long id){
+//        final Optional<Post> postOptional = getPostUseCase.getPost(id);
+//        if(postOptional.isEmpty()){
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok().body(postOptional.get());
+//    }
     @DeleteMapping("{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable long postId){
         deletePostUseCase.deletePost(postId);
@@ -53,5 +49,15 @@ public class PostController {
         request.setId(id);
         updatePostUseCase.updatePost(request);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<GetUserPostsResponse> getUserPosts(
+            @PathVariable(value = "id") final long id){
+        GetUserPostsRequest request = GetUserPostsRequest.builder()
+                .userId(id)
+                .build();
+        GetUserPostsResponse response = getUserPostsUseCase.getUserPosts(request);
+        return ResponseEntity.ok(response);
     }
 }
