@@ -17,6 +17,9 @@ sonar {
         property "sonar.coverage.exclusions", [
                 "src/main/java/airborne/configuration/**/*",
                 "src/main/java/airborne/AirborneApplication.java",
+                "src/main/java/airborne/domain/**/*",
+                "src/main/java/airborne/business/exception/**/*",
+                "src/main/java/airborne/business/dto/**/*",
         ]
     }
 }
@@ -84,6 +87,9 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                     "airborne/configuration/**/*",
                     "airborne/AirborneApplication.java",
+                    "airborne/domain/**/*",
+                    "airborne/business/exception/**/*",
+                    "airborne/business/dto/**/*",
             ])
         }))
     }
