@@ -23,6 +23,7 @@ public class UserController {
     private final DeleteUserUseCase deleteUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
     private final LoginUseCase loginUseCase;
+    private final GetFilteredUsersUseCase getFilteredSearchUsersUseCase;
 
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") final long id) {
@@ -56,6 +57,14 @@ public class UserController {
         LoginResponse loginResponse = loginUseCase.login(loginRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(loginResponse);
     }
+    @GetMapping(path = "/search/{username}")
+    public ResponseEntity<GetFilteredUsersResponse> getFilteredSearchUsers(@PathVariable(value = "username") final String username){
+        GetFilteredUsersRequest request = GetFilteredUsersRequest.builder()
+                .username(username)
+                .build();
 
+        GetFilteredUsersResponse response = getFilteredSearchUsersUseCase.getFilteredUsers(request);
 
+        return ResponseEntity.ok(response);
+    }
 }
