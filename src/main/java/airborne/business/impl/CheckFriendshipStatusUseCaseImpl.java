@@ -6,6 +6,7 @@ import airborne.business.dto.CheckFriendshipStatusResponse;
 import airborne.domain.Friendship;
 import airborne.persistance.FriendshipRepository;
 import airborne.persistance.entity.FriendshipEntity;
+import airborne.persistance.entity.FriendshipEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,14 @@ public class CheckFriendshipStatusUseCaseImpl implements CheckFriendshipStatusUs
     public CheckFriendshipStatusResponse checkFriendshipStatus(CheckFriendshipStatusRequest request){
         FriendshipEntity friendshipEntity;
 
-        if (request.getLoggedInUser() != 0 && request.getOtherUser() != 0) {
+        if (request.getLoggedInUser() != 0L && request.getOtherUser() != 0L) {
             friendshipEntity = friendshipRepository.getFriendshipBySenderIdAndRecipientId(request.getLoggedInUser(), request.getOtherUser());
+
+            if(friendshipEntity == null){
+                friendshipEntity = new FriendshipEntity();
+                friendshipEntity.setId(0L);
+                friendshipEntity.setStatus(FriendshipEnum.NOT_FRIENDS);
+            }
         }
         else {
             friendshipEntity = new FriendshipEntity();

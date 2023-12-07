@@ -2,5 +2,6 @@ package airborne.persistance.entity;
 
 public enum FriendshipEnum {
     ACCEPTED,
-    REQUESTED
+    REQUESTED,
+    NOT_FRIENDS
 }

@@ -2,10 +2,9 @@ package airborne.controller;
 
 import airborne.business.AddFriendUseCase;
 import airborne.business.CheckFriendshipStatusUseCase;
-import airborne.business.dto.AddFriendRequest;
-import airborne.business.dto.AddFriendResponse;
-import airborne.business.dto.CheckFriendshipStatusRequest;
-import airborne.business.dto.CheckFriendshipStatusResponse;
+import airborne.business.DeleteFriendshipUseCase;
+import airborne.business.dto.*;
+import airborne.persistance.entity.FriendshipEnum;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class FriendshipController {
     private final AddFriendUseCase addFriendUseCase;
     private final CheckFriendshipStatusUseCase checkFriendshipStatusUseCase;
+    private final DeleteFriendshipUseCase deleteFriendshipUseCase;
 
     @PostMapping
     public ResponseEntity<AddFriendResponse> createFriendship(@RequestBody @Valid AddFriendRequest request){
@@ -35,5 +35,10 @@ public class FriendshipController {
         CheckFriendshipStatusResponse response = checkFriendshipStatusUseCase.checkFriendshipStatus(request);
 
         return ResponseEntity.ok(response);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteFriendship(@PathVariable long id){
+        deleteFriendshipUseCase.deleteFriendship(id);
+        return ResponseEntity.noContent().build();
     }
 }
