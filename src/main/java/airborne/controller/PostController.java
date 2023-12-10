@@ -24,6 +24,7 @@ public class PostController {
     private final DeletePostUseCase deletePostUseCase;
     private final UpdatePostUseCase updatePostUseCase;
     private final GetUserPostsUseCase getUserPostsUseCase;
+    private final GetFeedPostsUseCase getFeedPostsUseCase;
     @PostMapping()
     public ResponseEntity<CreatePostResponse> createPost(@RequestBody @Valid CreatePostRequest request){
         CreatePostResponse response = createPostUseCase.createPost(request);
@@ -61,6 +62,18 @@ public class PostController {
                 .page(page)
                 .build();
         GetUserPostsResponse response = getUserPostsUseCase.getUserPosts(request);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping(path = "/feed/{userId}")
+    public ResponseEntity<GetFeedPostsResponse> getFeedPosts(
+            @PathVariable(value = "userId") final long userId,
+            @RequestParam(value = "page", defaultValue = "0") int page){
+
+        GetFeedPostsRequest request = GetFeedPostsRequest.builder()
+                .userId(userId)
+                .page(page)
+                .build();
+        GetFeedPostsResponse response = getFeedPostsUseCase.getFeedPosts(request);
         return ResponseEntity.ok(response);
     }
 }
