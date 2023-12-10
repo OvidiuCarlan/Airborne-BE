@@ -13,6 +13,7 @@ public class PostConverter {
                 .userId(post.getUserId())
                 .content(post.getContent())
                 .image(post.getImage())
+                .dateTime(post.getDateTime())
                 .build();
     }
 }

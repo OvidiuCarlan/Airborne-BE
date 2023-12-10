@@ -17,4 +17,6 @@ public class CreatePostRequest {
     private Long userId;
     private String content;
     private String image;
+    @NotNull
+    private String dateTime;
 }

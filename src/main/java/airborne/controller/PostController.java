@@ -53,9 +53,12 @@ public class PostController {
 
     @GetMapping("{id}")
     public ResponseEntity<GetUserPostsResponse> getUserPosts(
-            @PathVariable(value = "id") final long id){
+            @PathVariable(value = "id") final long id,
+            @RequestParam(value = "page", defaultValue = "0") int page) {
+
         GetUserPostsRequest request = GetUserPostsRequest.builder()
                 .userId(id)
+                .page(page)
                 .build();
         GetUserPostsResponse response = getUserPostsUseCase.getUserPosts(request);
         return ResponseEntity.ok(response);

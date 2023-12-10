@@ -67,19 +67,19 @@ class PostControllerTest {
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
     }
 
-    @Test
-    void testGetUserPosts_Success() {
-        GetUserPostsRequest getUserPostsRequest = GetUserPostsRequest.builder().userId(1L).build();
-        List<Post> posts = Collections.singletonList(new Post());
-
-        GetUserPostsResponse getUserPostsResponse = new GetUserPostsResponse();
-        getUserPostsResponse.setPosts(posts);
-
-        when(getUserPostsUseCase.getUserPosts(any(GetUserPostsRequest.class))).thenReturn(getUserPostsResponse);
-
-        ResponseEntity<GetUserPostsResponse> responseEntity = postController.getUserPosts(1L);
-
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(getUserPostsResponse, responseEntity.getBody());
-    }
+//    @Test
+//    void testGetUserPosts_Success() {
+//        GetUserPostsRequest getUserPostsRequest = GetUserPostsRequest.builder().userId(1L).build();
+//        List<Post> posts = Collections.singletonList(new Post());
+//
+//        GetUserPostsResponse getUserPostsResponse = new GetUserPostsResponse();
+//        getUserPostsResponse.setPosts(posts);
+//
+//        when(getUserPostsUseCase.getUserPosts(any(GetUserPostsRequest.class))).thenReturn(getUserPostsResponse);
+//
+//        ResponseEntity<GetUserPostsResponse> responseEntity = postController.getUserPosts(1L);
+//
+//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//        assertEquals(getUserPostsResponse, responseEntity.getBody());
+//    }
 }

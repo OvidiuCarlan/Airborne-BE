@@ -7,6 +7,10 @@ import airborne.domain.Post;
 import airborne.persistance.PostRepository;
 import airborne.persistance.entity.PostEntity;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +27,11 @@ public class GetUserPostsUseCaseImpl implements GetUserPostsUseCase {
         List<PostEntity> results;
 
         if(request.getUserId() != null){
-            results = postRepository.getPostEntityByUserId(request.getUserId());
+            Pageable pageable = PageRequest.of(request.getPage(), 3,Sort.by("id").descending());
+            //,Sort.by("id").descending() Add this in the parenthesis above
+            Page<PostEntity> pageResult = postRepository.getUserPostsPaginated(request.getUserId(), pageable);
+
+            results = pageResult.getContent();
         }
         else{
             results = new ArrayList<>();

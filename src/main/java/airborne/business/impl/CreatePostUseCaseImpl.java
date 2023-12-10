@@ -30,6 +30,7 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
                 .userId(request.getUserId())
                 .content(request.getContent())
                 .image(request.getImage())
+                .dateTime(request.getDateTime())
                 .build();
         return postRepository.save(newPost);
     }

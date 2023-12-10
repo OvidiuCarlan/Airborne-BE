@@ -23,4 +23,6 @@ public class PostEntity {
     private String content;
     @Column(name = "image")
     private String image;
+    @Column(name = "date_time")
+    private String dateTime;
 }

@@ -15,4 +15,5 @@ public class Post {
     private Long userId;
     private String content;
     private String image;
+    private String dateTime;
 }

@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetUserPostsRequest {
     private Long userId;
+    private int page;
 }
