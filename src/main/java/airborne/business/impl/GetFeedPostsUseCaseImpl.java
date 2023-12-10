@@ -39,7 +39,7 @@ public class GetFeedPostsUseCaseImpl implements GetFeedPostsUseCase {
                 .stream()
                 .map(PostConverter::convert)
                 .toList();
-        response.setFeedPosts(posts);
+        response.setPosts(posts);
 
         return response;
     }
