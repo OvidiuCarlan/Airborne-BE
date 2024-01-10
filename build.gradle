@@ -11,7 +11,7 @@ sonar {
     properties {
         property "sonar.projectKey", "Airborne"
         property "sonar.projectName", "Airborne"
-        property "sonar.token", "sqp_c0ee9c43f87bc9789cc871cc2b3dcbe6c9bcaec5"
+        property "sonar.token", "sqp_ba03ae2a39e8afe51a5d7511fe1f271fd8b20ae7"
         property "sonar.qualitygate.wait", true
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.exclusions", [
