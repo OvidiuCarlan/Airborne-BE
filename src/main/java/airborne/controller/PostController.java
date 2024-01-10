@@ -4,6 +4,7 @@ package airborne.controller;
 import airborne.business.*;
 import airborne.business.dto.*;
 import airborne.domain.Post;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class PostController {
     private final UpdatePostUseCase updatePostUseCase;
     private final GetUserPostsUseCase getUserPostsUseCase;
     private final GetFeedPostsUseCase getFeedPostsUseCase;
+    private final GetUserPostCountUseCase getUserPostCountUseCase;
     @PostMapping()
     public ResponseEntity<CreatePostResponse> createPost(@RequestBody @Valid CreatePostRequest request){
         CreatePostResponse response = createPostUseCase.createPost(request);
@@ -74,6 +76,12 @@ public class PostController {
                 .page(page)
                 .build();
         GetFeedPostsResponse response = getFeedPostsUseCase.getFeedPosts(request);
+        return ResponseEntity.ok(response);
+    }
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("statistics")
+    public ResponseEntity<GetUserPostCountResponse> getUserPostCounts() {
+        GetUserPostCountResponse response = getUserPostCountUseCase.getUserPostCount();
         return ResponseEntity.ok(response);
     }
 }

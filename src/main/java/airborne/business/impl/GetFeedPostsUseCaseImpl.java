@@ -26,7 +26,7 @@ public class GetFeedPostsUseCaseImpl implements GetFeedPostsUseCase {
         List<PostEntity> results;
 
         if(request.getUserId() != null){
-            Pageable pageable = PageRequest.of(request.getPage(), 3, Sort.by("id").descending());
+            Pageable pageable = PageRequest.of(request.getPage(), 5, Sort.by("id").descending());
             Page<PostEntity> pageResult = postRepository.getFeedPosts(request.getUserId(), pageable);
 
             results = pageResult.getContent();

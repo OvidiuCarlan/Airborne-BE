@@ -21,6 +21,7 @@ public class FriendshipEntity {
     private Long senderId;
     @Column(name = "recipient_id")
     private Long recipientId;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private FriendshipEnum status;
 }

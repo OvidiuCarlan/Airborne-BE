@@ -1,6 +1,6 @@
 package airborne.persistance;
 
-import airborne.domain.Post;
+import airborne.domain.UserPostCount;
 import airborne.persistance.entity.PostEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +16,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     List<PostEntity> getPostEntityByUserId(long id);
 
     @Query("SELECT p FROM PostEntity p WHERE p.userId = :userId")
-    Page<PostEntity> getUserPostsPaginated(
-            @Param("userId") long userId,
-            Pageable pageable);
+    Page<PostEntity> getUserPostsPaginated(@Param("userId") long userId, Pageable pageable);
     @Query("SELECT p FROM PostEntity p " +
             "WHERE p.userId IN " +
             "(SELECT DISTINCT CASE " +
@@ -28,7 +26,9 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
             "FROM FriendshipEntity f " +
             "WHERE f.senderId = :userId OR f.recipientId = :userId) " +
             "AND p.userId <> :userId")
-    Page<PostEntity> getFeedPosts(
-            @Param("userId") Long userId,
-            Pageable pageable);
+    Page<PostEntity> getFeedPosts(@Param("userId") Long userId, Pageable pageable);
+
+    @Query("SELECT new airborne.domain.UserPostCount(u.id, u.name, COUNT(p)) " +
+            "FROM PostEntity p JOIN UserEntity u ON p.userId = u.id GROUP BY u.id, u.name")
+    List<UserPostCount> getUserPostCounts();
 }

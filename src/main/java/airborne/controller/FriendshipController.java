@@ -3,6 +3,7 @@ package airborne.controller;
 import airborne.business.AddFriendUseCase;
 import airborne.business.CheckFriendshipStatusUseCase;
 import airborne.business.DeleteFriendshipUseCase;
+import airborne.business.GetFriendListUseCase;
 import airborne.business.dto.*;
 import airborne.persistance.entity.FriendshipEnum;
 import jakarta.validation.Valid;
@@ -20,6 +21,7 @@ public class FriendshipController {
     private final AddFriendUseCase addFriendUseCase;
     private final CheckFriendshipStatusUseCase checkFriendshipStatusUseCase;
     private final DeleteFriendshipUseCase deleteFriendshipUseCase;
+    private final GetFriendListUseCase getFriendListUseCase;
 
     @PostMapping
     public ResponseEntity<AddFriendResponse> createFriendship(@RequestBody @Valid AddFriendRequest request){
@@ -40,5 +42,14 @@ public class FriendshipController {
     public ResponseEntity<Void> deleteFriendship(@PathVariable long id){
         deleteFriendshipUseCase.deleteFriendship(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/all/{id}")
+    public ResponseEntity<GetFriendListResponse> getFriendList(@PathVariable(value = "id") final long id){
+        GetFriendListRequest request = GetFriendListRequest.builder()
+                .id(id)
+                .build();
+        GetFriendListResponse response = getFriendListUseCase.getFriendList(request);
+        return ResponseEntity.ok(response);
     }
 }
