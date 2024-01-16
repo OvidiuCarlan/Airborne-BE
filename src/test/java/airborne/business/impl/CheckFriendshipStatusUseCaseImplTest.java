@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,6 +63,41 @@ class CheckFriendshipStatusUseCaseImplTest {
     void checkFriendshipStatus_InvalidUsers() {
         // Arrange
         CheckFriendshipStatusRequest request = new CheckFriendshipStatusRequest(0L, 0L);
+
+        // Act
+        CheckFriendshipStatusResponse response = checkFriendshipStatusUseCase.checkFriendshipStatus(request);
+
+        // Assert
+        assertEquals(0L, response.getId());
+        assertEquals(FriendshipEnum.NOT_FRIENDS, response.getStatus());
+    }
+    @Test
+    void checkFriendshipStatus_InvalidLoggedInUser_Failure() {
+        // Arrange
+        CheckFriendshipStatusRequest request = new CheckFriendshipStatusRequest(0L, 2L);
+        FriendshipEntity friendshipEntity = new FriendshipEntity();
+        friendshipEntity.setId(0L);
+        friendshipEntity.setStatus(FriendshipEnum.NOT_FRIENDS);
+
+        lenient().when(friendshipRepository.getFriendshipBySenderIdAndRecipientId(anyLong(), anyLong())).thenReturn(friendshipEntity);
+
+        // Act
+        CheckFriendshipStatusResponse response = checkFriendshipStatusUseCase.checkFriendshipStatus(request);
+
+        // Assert
+        assertEquals(0L, response.getId());
+        assertEquals(FriendshipEnum.NOT_FRIENDS, response.getStatus());
+    }
+
+    @Test
+    void checkFriendshipStatus_InvalidOtherUser_Failure() {
+        // Arrange
+        CheckFriendshipStatusRequest request = new CheckFriendshipStatusRequest(1L, 0L);
+        FriendshipEntity friendshipEntity = new FriendshipEntity();
+        friendshipEntity.setId(0L);
+        friendshipEntity.setStatus(FriendshipEnum.NOT_FRIENDS);
+
+        lenient().when(friendshipRepository.getFriendshipBySenderIdAndRecipientId(anyLong(), anyLong())).thenReturn(friendshipEntity);
 
         // Act
         CheckFriendshipStatusResponse response = checkFriendshipStatusUseCase.checkFriendshipStatus(request);
