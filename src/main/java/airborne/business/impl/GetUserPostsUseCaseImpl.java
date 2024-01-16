@@ -28,7 +28,6 @@ public class GetUserPostsUseCaseImpl implements GetUserPostsUseCase {
 
         if(request.getUserId() != null){
             Pageable pageable = PageRequest.of(request.getPage(), 3,Sort.by("id").descending());
-            //,Sort.by("id").descending() Add this in the parenthesis above
             Page<PostEntity> pageResult = postRepository.getUserPostsPaginated(request.getUserId(), pageable);
 
             results = pageResult.getContent();
