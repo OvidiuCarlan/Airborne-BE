@@ -32,7 +32,7 @@ class GetUserPostsUseCaseImplTest {
     void getUserPosts_Success() {
         // Arrange
         GetUserPostsRequest request = new GetUserPostsRequest(1L, 0);
-        List<PostEntity> postEntities = new ArrayList<>(); // Add sample PostEntities as needed
+        List<PostEntity> postEntities = new ArrayList<>();
         Pageable pageable = PageRequest.of(request.getPage(), 3, Sort.by("id").descending());
         Page<PostEntity> pageResult = new PageImpl<>(postEntities, pageable, 3);
 
