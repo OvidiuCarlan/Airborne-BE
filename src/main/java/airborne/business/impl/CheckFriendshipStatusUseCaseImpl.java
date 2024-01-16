@@ -31,6 +31,8 @@ public class CheckFriendshipStatusUseCaseImpl implements CheckFriendshipStatusUs
         }
         else {
             friendshipEntity = new FriendshipEntity();
+            friendshipEntity.setId(0L);
+            friendshipEntity.setStatus(FriendshipEnum.NOT_FRIENDS);
         }
         final CheckFriendshipStatusResponse response = new CheckFriendshipStatusResponse();
         Friendship friendship = FriendshipConverter.convert(friendshipEntity);
