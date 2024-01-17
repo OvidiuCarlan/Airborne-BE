@@ -50,16 +50,16 @@ variables:
 before_script:
  - docker info
 
-sonarqube:
- stage: sonarqube
- script:
-  - docker stop sonarqube || $true
-  - docker rm sonarqube || $true
-  - docker pull $SONARQUBE_IMAGE
-  - docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -v sonarqube_data:/opt/sonarqube/data -v sonarqube_extensions:/opt/sonarqube/extensions -v sonarqube_logs:/opt/sonarqube/logs $SONARQUBE_IMAGE
+#sonarqube:
+# stage: sonarqube
+# script:
+#  - docker stop sonarqube || $true
+#  - docker rm sonarqube || $true
+#  - docker pull $SONARQUBE_IMAGE
+#  - docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -v sonarqube_data:/opt/sonarqube/data -v sonarqube_extensions:/opt/sonarqube/extensions -v sonarqube_logs:/opt/sonarqube/logs $SONARQUBE_IMAGE
 
 sonarqube_analysis:
- stage: sonarqube
+# stage: sonarqube
  script:
   - ./gradlew jacocoTestReport sonar
  only:
