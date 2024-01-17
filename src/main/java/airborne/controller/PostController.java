@@ -32,15 +32,6 @@ public class PostController {
         CreatePostResponse response = createPostUseCase.createPost(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
-//    @GetMapping("{id}")
-//    public ResponseEntity<Post> getPost(@PathVariable(value = "id") final long id){
-//        final Optional<Post> postOptional = getPostUseCase.getPost(id);
-//        if(postOptional.isEmpty()){
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok().body(postOptional.get());
-//    }
     @DeleteMapping("{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable long postId){
         deletePostUseCase.deletePost(postId);

@@ -89,4 +89,4 @@ deploy_database:
   - docker stop airbornedb || $true
   - docker rm airbornedb || $true
   - docker pull $DATABASE_IMAGE
-  - docker run -d -e ACCEPT_EULA=Y -e SA_PASSWORD=windous18 -p 1433:1433 --name airbornedb $DATABASE_IMAGE
+  - docker run -d -e ACCEPT_EULA=Y -e SA_PASSWORD=windous18 -p 5432:1433 --name airbornedb $DATABASE_IMAGE
