@@ -24,7 +24,7 @@ class GetUserPostCountUseCaseImplTest {
     GetUserPostCountUseCaseImpl getUserPostCountUseCase;
 
     @Test
-    public void GetUserPostCount(){
+    void GetUserPostCount(){
         when(postRepository.getUserPostCounts()).thenReturn(Collections.singletonList(new UserPostCount()));
 
         GetUserPostCountResponse response = getUserPostCountUseCase.getUserPostCount();
