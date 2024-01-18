@@ -25,7 +25,6 @@ import java.util.Optional;
 public class PostController {
 
     private final CreatePostUseCase createPostUseCase;
-    private final GetPostUseCase getPostUseCase;
     private final DeletePostUseCase deletePostUseCase;
     private final UpdatePostUseCase updatePostUseCase;
     private final GetUserPostsUseCase getUserPostsUseCase;
