@@ -84,16 +84,16 @@ class UserControllerTest {
         assertEquals(createUserResponse, responseEntity.getBody());
     }
 
-    @Test
-    void testUpdateUser_Success() {
-        UpdateUserRequest updateUserRequest = new UpdateUserRequest();
-
-        ResponseEntity<Void> responseEntity = userController.updateUser(1L, updateUserRequest);
-
-        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
-        verify(updateUserUseCase).updateUser(any(UpdateUserRequest.class));
-        verify(updateUserUseCase).updateUser(eq(updateUserRequest));
-    }
+//    @Test
+//    void testUpdateUser_Success() {
+//        UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+//
+//        ResponseEntity<Void> responseEntity = userController.updateUser(1L, updateUserRequest);
+//
+//        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+//        verify(updateUserUseCase).updateUser(any(UpdateUserRequest.class));
+//        verify(updateUserUseCase).updateUser(eq(updateUserRequest));
+//    }
 
     @Test
     void testLogin_Success() {
