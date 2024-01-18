@@ -53,7 +53,7 @@ class PostControllerTest {
 
     @Test
     void testDeletePost_Success() {
-        ResponseEntity<Void> responseEntity = postController.deletePost(1L);
+        ResponseEntity<Void> responseEntity = postController.deletePost(1L, 2L);
 
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
     }

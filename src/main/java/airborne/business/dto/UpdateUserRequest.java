@@ -14,6 +14,4 @@ public class UpdateUserRequest {
     private Long id;
     private String name;
     private String email;
-    private String password;
-    private UserRoleEntity role;
 }

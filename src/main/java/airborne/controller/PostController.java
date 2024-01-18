@@ -3,12 +3,16 @@ package airborne.controller;
 
 import airborne.business.*;
 import airborne.business.dto.*;
+import airborne.configuration.security.token.AccessToken;
 import airborne.domain.Post;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -27,13 +31,27 @@ public class PostController {
     private final GetUserPostsUseCase getUserPostsUseCase;
     private final GetFeedPostsUseCase getFeedPostsUseCase;
     private final GetUserPostCountUseCase getUserPostCountUseCase;
+
+    @Autowired
+    private AccessToken authenticatedUser;
+
     @PostMapping()
     public ResponseEntity<CreatePostResponse> createPost(@RequestBody @Valid CreatePostRequest request){
+        long authenticatedUserId = authenticatedUser.getUserId();
+
+        if (request.getUserId() != authenticatedUserId) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         CreatePostResponse response = createPostUseCase.createPost(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @DeleteMapping("{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable long postId){
+    @DeleteMapping("{postId}/{userId}")
+    public ResponseEntity<Void> deletePost(@PathVariable long postId, @PathVariable long userId){
+        long authenticatedUserId = authenticatedUser.getUserId();
+
+        if (userId != authenticatedUserId) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         deletePostUseCase.deletePost(postId);
         return ResponseEntity.noContent().build();
     }

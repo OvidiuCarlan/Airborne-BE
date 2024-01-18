@@ -2,9 +2,11 @@ package airborne.controller;
 
 import airborne.business.*;
 import airborne.business.dto.*;
+import airborne.configuration.security.token.AccessToken;
 import airborne.domain.User;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,10 @@ public class UserController {
     private final UpdateUserUseCase updateUserUseCase;
     private final LoginUseCase loginUseCase;
     private final GetFilteredUsersUseCase getFilteredSearchUsersUseCase;
+
+    @Autowired
+    private AccessToken authenticatedUser;
+
 
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") final long id) {
@@ -48,6 +54,12 @@ public class UserController {
     @PutMapping("{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") long id,
                                            @RequestBody @Valid UpdateUserRequest request) {
+        long authenticatedUserId = authenticatedUser.getUserId();
+
+        if (id != authenticatedUserId) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         request.setId(id);
         updateUserUseCase.updateUser(request);
         return ResponseEntity.noContent().build();
