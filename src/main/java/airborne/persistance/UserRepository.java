@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u FROM UserEntity u " +
             "JOIN FriendshipEntity f ON u.id = f.recipientId OR u.id = f.senderId " +
             "WHERE ((f.senderId = :providedUserId OR f.recipientId = :providedUserId) " +
-            "AND f.status = '0') " +
+            "AND f.status = 'ACCEPTED') " +
             "AND u.id <> :providedUserId")
     List<UserEntity> getFriendList(@Param("providedUserId") Long providedUserId);
 }
