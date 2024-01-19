@@ -83,4 +83,51 @@ class CreateReportUseCaseImplTest {
 
         assertEquals(null, response.getId());
     }
+
+    @Test
+    void createReport_ReporterNotPresent() {
+        // Arrange
+        CreateReportRequest request = new CreateReportRequest(1L, 2L, "Inappropriate Content");
+        UserEntity reported = new UserEntity();
+        reported.setId(1L);
+        reported.setName("reported");
+
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+        when(userRepository.findById(2L)).thenReturn(Optional.of(reported));
+
+        // Act
+        CreateReportResponse response = createReportUseCase.createReport(request);
+
+        // Assert
+        verify(userRepository, times(1)).findById(1L);
+        verify(userRepository, times(1)).findById(2L);
+        verify(reportRepository, times(0)).save(any());
+
+        assertNotNull(response);
+        assertNull(response.getId());
+    }
+
+
+    @Test
+    void createReport_ReportedNotPresent() {
+        // Arrange
+        CreateReportRequest request = new CreateReportRequest(1L, 2L, "Inappropriate Content");
+        UserEntity reporter = new UserEntity();
+        reporter.setId(2L);
+        reporter.setName("reporter");
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(reporter));
+        when(userRepository.findById(2L)).thenReturn(Optional.empty());
+
+        // Act
+        CreateReportResponse response = createReportUseCase.createReport(request);
+
+        // Assert
+        verify(userRepository, times(1)).findById(1L);
+        verify(userRepository, times(1)).findById(2L);
+        verify(reportRepository, times(0)).save(any());
+
+        assertNotNull(response);
+        assertNull(response.getId());
+    }
 }
