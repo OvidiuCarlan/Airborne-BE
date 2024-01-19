@@ -20,6 +20,8 @@ sonar {
                 "src/main/java/airborne/domain/**/*",
                 "src/main/java/airborne/business/exception/**/*",
                 "src/main/java/airborne/business/dto/**/*",
+                "src/main/java/airborne/business/controller/PostController",
+                "src/main/java/airborne/business/controller/ReportController"
         ]
     }
 }
