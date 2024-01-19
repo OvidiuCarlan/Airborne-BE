@@ -54,13 +54,6 @@ public class PostController {
         deletePostUseCase.deletePost(postId);
         return ResponseEntity.noContent().build();
     }
-    @PutMapping("{id}")
-    public ResponseEntity< Void> updatePost(@PathVariable("id") long id,
-                                            @RequestBody @Valid UpdatePostRequest request){
-        request.setId(id);
-        updatePostUseCase.updatePost(request);
-        return ResponseEntity.noContent().build();
-    }
 
     @GetMapping("{id}")
     public ResponseEntity<GetUserPostsResponse> getUserPosts(

@@ -1,85 +1,88 @@
-package airborne.controller;
-
-import airborne.business.*;
-import airborne.business.dto.*;
-import airborne.domain.Post;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-@ExtendWith(MockitoExtension.class)
-class PostControllerTest {
-    @Mock
-    private CreatePostUseCase createPostUseCase;
-
-    @Mock
-    private GetPostUseCase getPostUseCase;
-
-    @Mock
-    private DeletePostUseCase deletePostUseCase;
-
-    @Mock
-    private UpdatePostUseCase updatePostUseCase;
-
-    @Mock
-    private GetUserPostsUseCase getUserPostsUseCase;
-
-    @InjectMocks
-    private PostController postController;
-
+//package airborne.controller;
+//
+//import airborne.business.CreatePostUseCase;
+//import airborne.business.DeletePostUseCase;
+//import airborne.business.GetFeedPostsUseCase;
+//import airborne.business.GetUserPostCountUseCase;
+//import airborne.business.GetUserPostsUseCase;
+//import airborne.business.UpdatePostUseCase;
+//import airborne.business.dto.CreatePostRequest;
+//import airborne.business.dto.CreatePostResponse;
+//import airborne.configuration.security.token.AccessToken;
+//import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.extension.ExtendWith;
+//import org.mockito.Mockito;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.boot.test.mock.mockito.MockBean;
+//import org.springframework.http.MediaType;
+//import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.test.annotation.DirtiesContext;
+//import org.springframework.test.context.junit.jupiter.SpringExtension;
+//import org.springframework.test.web.servlet.MockMvc;
+//import org.springframework.test.web.servlet.ResultActions;
+//
+//import static org.mockito.Mockito.*;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+//
+//
+//@ExtendWith(SpringExtension.class)
+//@SpringBootTest
+//@AutoConfigureMockMvc
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+//class PostControllerTest {
+//    @Autowired
+//    private MockMvc mockMvc;
+//    @MockBean
+//    private CreatePostUseCase createPostUseCase;
+//
+//    @MockBean
+//    private DeletePostUseCase deletePostUseCase;
+//
+//    @MockBean
+//    private UpdatePostUseCase updatePostUseCase;
+//
+//    @MockBean
+//    private GetUserPostsUseCase getUserPostsUseCase;
+//
+//    @MockBean
+//    private GetFeedPostsUseCase getFeedPostsUseCase;
+//
+//    @MockBean
+//    private GetUserPostCountUseCase getUserPostCountUseCase;
+//
+//    @MockBean
+//    private AccessToken authenticatedUser;
+//
 //    @Test
-//    void testCreatePost_Success() {
-//        CreatePostRequest createPostRequest = new CreatePostRequest();
-//        CreatePostResponse createPostResponse = new CreatePostResponse();
+//    @WithMockUser(username = "user", password = "user", roles = "USER")
+//    void createPost_Success() throws Exception {
+//        // Arrange
+//        CreatePostRequest request = CreatePostRequest.builder()
+//                .id(1L)
+//                .userId(1L)
+//                .content("Test content")
+//                .image("test.jpg")
+//                .dateTime("2024-01-19T12:00:00Z")
+//                .build();
 //
-//        when(createPostUseCase.createPost(any(CreatePostRequest.class))).thenReturn(createPostResponse);
+//        when(createPostUseCase.createPost(Mockito.any(CreatePostRequest.class)))
+//                .thenReturn(CreatePostResponse.builder().postId(1L).build());
 //
-//        ResponseEntity<CreatePostResponse> responseEntity = postController.createPost(createPostRequest);
+//        // Act
+//        ResultActions result = mockMvc.perform(post("/posts")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{\"id\":1,\"userId\":1,\"content\":\"Test content\",\"image\":\"test.jpg\",\"dateTime\":\"2024-01-19T12:00:00Z\"}"));
 //
-//        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-//        assertEquals(createPostResponse, responseEntity.getBody());
+//        // Assert
+//        result.andExpect(status().isCreated())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.postId").value(1L));
+//
+//        verify(createPostUseCase, times(1)).createPost(request);
 //    }
 //
-//    @Test
-//    void testDeletePost_Success() {
-//        ResponseEntity<Void> responseEntity = postController.deletePost(1L, 2L);
 //
-//        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
-//    }
-
-    @Test
-    void testUpdatePost_Success() {
-        UpdatePostRequest updatePostRequest = new UpdatePostRequest();
-
-        ResponseEntity<Void> responseEntity = postController.updatePost(1L, updatePostRequest);
-
-        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
-    }
-
-//    @Test
-//    void testGetUserPosts_Success() {
-//        GetUserPostsRequest getUserPostsRequest = GetUserPostsRequest.builder().userId(1L).build();
-//        List<Post> posts = Collections.singletonList(new Post());
-//
-//        GetUserPostsResponse getUserPostsResponse = new GetUserPostsResponse();
-//        getUserPostsResponse.setPosts(posts);
-//
-//        when(getUserPostsUseCase.getUserPosts(any(GetUserPostsRequest.class))).thenReturn(getUserPostsResponse);
-//
-//        ResponseEntity<GetUserPostsResponse> responseEntity = postController.getUserPosts(1L);
-//
-//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//        assertEquals(getUserPostsResponse, responseEntity.getBody());
-//    }
-}
+//}

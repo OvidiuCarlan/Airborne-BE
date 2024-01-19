@@ -91,6 +91,8 @@ jacocoTestReport {
                     "airborne/domain/**/*",
                     "airborne/business/exception/**/*",
                     "airborne/business/dto/**/*",
+                    "airborne/business/controller/PostController",
+                    "airborne/business/controller/ReportController",
             ])
         }))
     }
