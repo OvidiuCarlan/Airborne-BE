@@ -1,6 +1,5 @@
 package airborne.business.dto;
 
-import airborne.persistance.entity.UserRoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

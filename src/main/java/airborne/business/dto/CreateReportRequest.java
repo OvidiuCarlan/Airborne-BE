@@ -16,5 +16,5 @@ public class CreateReportRequest {
     @NotNull
     private Long reportedId;
     @NotNull
-    private String Reason;
+    private String reason;
 }
