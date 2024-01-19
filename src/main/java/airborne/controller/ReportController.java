@@ -27,11 +27,11 @@ public class ReportController {
 
     @PostMapping()
     public ResponseEntity<CreateReportResponse> createReport(@RequestBody @Valid CreateReportRequest request){
-        long authenticatedUserId = authenticatedUser.getUserId();
-
-        if(request.getReporterId() != authenticatedUserId) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+//        long authenticatedUserId = authenticatedUser.getUserId();
+//
+//        if(request.getReporterId() != authenticatedUserId) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+//        }
         CreateReportResponse response = createReportUseCase.createReport(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

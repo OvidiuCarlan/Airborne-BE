@@ -20,8 +20,8 @@ sonar {
                 "src/main/java/airborne/domain/**/*",
                 "src/main/java/airborne/business/exception/**/*",
                 "src/main/java/airborne/business/dto/**/*",
-                "src/main/java/airborne/business/controller/PostController.java",
-                "src/main/java/airborne/business/controller/ReportController.java"
+                "src/main/java/airborne/controller/PostController.java",
+                "src/main/java/airborne/controller/UserController",
         ]
     }
 }
@@ -93,8 +93,8 @@ jacocoTestReport {
                     "airborne/domain/**/*",
                     "airborne/business/exception/**/*",
                     "airborne/business/dto/**/*",
-                    "airborne/business/controller/PostController.java",
-                    "airborne/business/controller/ReportController.java",
+                    "airborne/controller/PostController.java",
+                    "airborne/controller/UserController",
             ])
         }))
     }
