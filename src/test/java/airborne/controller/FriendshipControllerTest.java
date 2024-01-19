@@ -5,7 +5,11 @@ import airborne.business.CheckFriendshipStatusUseCase;
 import airborne.business.DeleteFriendshipUseCase;
 import airborne.business.GetFriendListUseCase;
 import airborne.business.dto.*;
+import airborne.domain.User;
 import airborne.persistance.entity.FriendshipEnum;
+import airborne.persistance.entity.RoleEnum;
+import airborne.persistance.entity.UserEntity;
+import airborne.persistance.entity.UserRoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -67,60 +74,74 @@ class FriendshipControllerTest {
 
         verify(addFriendUseCase, times(1)).addFriend(request);
     }
-//    @Test
-//    @WithMockUser(username = "user", password = "user", roles = "USER")
-//    void checkFriendshipStatus_Success() throws Exception {
-//        // Arrange
-//        long loggedInUserId = 1L;
-//        long otherUserId = 2L;
-//        CheckFriendshipStatusRequest request = new CheckFriendshipStatusRequest(loggedInUserId, otherUserId);
-//        CheckFriendshipStatusResponse response = new CheckFriendshipStatusResponse(1L, FriendshipEnum.ACCEPTED);
-//
-//        when(checkFriendshipStatusUseCase.checkFriendshipStatus(request)).thenReturn(response);
-//
-//        // Act
-//        ResultActions result = mockMvc.perform(get("/friendships/check/{loggedInUserId}/{otherUserId}", loggedInUserId, otherUserId));
-//
-//        // Assert
-//        result.andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.status").value("ACCEPTED"))
-//                .andExpect(jsonPath("$.timestamp").isNotEmpty());
-//
-//        verify(checkFriendshipStatusUseCase, times(1)).checkFriendshipStatus(request);
-//    }
+    @Test
+    @WithMockUser(username = "user", password = "user", roles = "USER")
+    void checkFriendshipStatus_Success() throws Exception {
+        // Arrange
+        long loggedInUserId = 1L;
+        long otherUserId = 2L;
+        CheckFriendshipStatusRequest request = new CheckFriendshipStatusRequest(loggedInUserId, otherUserId);
+        CheckFriendshipStatusResponse response = new CheckFriendshipStatusResponse(1L, FriendshipEnum.ACCEPTED);
 
-//    @Test
-//    void deleteFriendship_Success() throws Exception {
-//        // Arrange
-//        long friendshipId = 1L;
-//
-//        // Act
-//        ResultActions result = mockMvc.perform(delete("/friendships/delete/{id}", friendshipId));
-//
-//        // Assert
-//        result.andExpect(status().isNoContent());
-//
-//        verify(deleteFriendshipUseCase, times(1)).deleteFriendship(friendshipId);
-//    }
-//
-//    @Test
-//    void getFriendList_Success() throws Exception {
-//        // Arrange
-//        long userId = 1L;
-//        GetFriendListRequest request = GetFriendListRequest.builder().id(userId).build();
-//        GetFriendListResponse response = new GetFriendListResponse(/* your response fields here */);
-//
-//        when(getFriendListUseCase.getFriendList(request)).thenReturn(response);
-//
-//        // ACt
-//        ResultActions result = mockMvc.perform(get("/friendships/all/{id}", userId));
-//
-//        // Assert
-//        result.andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$./* your expected field in response here */").value(/* expected value */));
-//
-//        verify(getFriendListUseCase, times(1)).getFriendList(request);
-//    }
+        when(checkFriendshipStatusUseCase.checkFriendshipStatus(request)).thenReturn(response);
+
+        // Act
+        ResultActions result = mockMvc.perform(get("/friendships/check/{loggedInUserId}/{otherUserId}", loggedInUserId, otherUserId));
+
+        // Assert
+        result.andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value("ACCEPTED"));
+
+        verify(checkFriendshipStatusUseCase, times(1)).checkFriendshipStatus(request);
+    }
+
+    @Test
+    @WithMockUser(username = "user", password = "user", roles = "USER")
+    void deleteFriendship_Success() throws Exception {
+        // Arrange
+        long friendshipId = 1L;
+
+        // Act
+        ResultActions result = mockMvc.perform(delete("/friendships/delete/{id}", friendshipId));
+
+        // Assert
+        result.andExpect(status().isNoContent());
+
+        verify(deleteFriendshipUseCase, times(1)).deleteFriendship(friendshipId);
+    }
+
+        @Test
+        @WithMockUser(username = "user", password = "user", roles = "USER")
+        void getFriendList_Success() throws Exception {
+            // Arrange
+            long userId = 1L;
+            GetFriendListRequest request = GetFriendListRequest.builder().id(userId).build();
+
+            // Assuming your GetFriendListResponse has a list of friends with names
+            UserRoleEntity userRole = UserRoleEntity.builder().role(RoleEnum.USER).build();
+
+            List<User> friends = Arrays.asList(
+                    new User(2L, "Friend1", "mail@mail.com", "test", userRole),
+                    new User(3L, "Friend2", "mail@mail.com", "test", userRole)
+            );
+
+            GetFriendListResponse response = new GetFriendListResponse(friends);
+
+            when(getFriendListUseCase.getFriendList(request)).thenReturn(response);
+
+            // ACt
+            ResultActions result = mockMvc.perform(get("/friendships/all/{id}", userId));
+
+            // Assert
+            result.andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.friends").isArray())
+                    .andExpect(jsonPath("$.friends[0].id").value(2L))
+                    .andExpect(jsonPath("$.friends[0].name").value("Friend1"))
+                    .andExpect(jsonPath("$.friends[1].id").value(3L))
+                    .andExpect(jsonPath("$.friends[1].name").value("Friend2"));
+
+            verify(getFriendListUseCase, times(1)).getFriendList(request);
+        }
 }
