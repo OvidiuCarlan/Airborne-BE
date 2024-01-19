@@ -33,10 +33,10 @@ class AddFriendUseCaseImplTest {
 
         when(friendshipRepository.save(any())).thenReturn(newFriendship);
 
-        // Act
+        //Act
         AddFriendResponse response = addFriendUseCase.addFriend(request);
 
-        // Assert
+        //Assert
         verify(friendshipRepository, times(1)).save(any());
     }
 }
